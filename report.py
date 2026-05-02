@@ -19,7 +19,7 @@ def _grade_color(grade: str) -> str:
     return GRADE_COLORS.get(grade, 'white')
 
 
-def print_report(vendor_scores: List[Dict]) -> None:
+def print_report(vendor_scores: List[Dict], ai_suggestions: List[str] = None) -> None:
     console = Console(legacy_windows=False)
     console.print('\n[bold]*** SupplyGuard JP -- サプライチェーン セキュリティ評価[/bold]')
     console.print('=' * 60)
@@ -74,8 +74,14 @@ def print_report(vendor_scores: List[Dict]) -> None:
                 console.print(f'  {i}. {issue}')
     console.print()
 
+    if ai_suggestions:
+        console.print('[bold bright_cyan]Claude AI 対応提案:[/bold bright_cyan]')
+        for suggestion in ai_suggestions:
+            console.print(f'  {suggestion}')
+        console.print()
 
-def build_md_report(vendor_scores: List[Dict]) -> str:
+
+def build_md_report(vendor_scores: List[Dict], ai_suggestions: List[str] = None) -> str:
     lines = [
         '# SupplyGuard JP -- サプライチェーン セキュリティ評価レポート',
         '',
@@ -103,6 +109,11 @@ def build_md_report(vendor_scores: List[Dict]) -> str:
         for ax, (label, _) in AXIS_LABELS.items():
             for issue in axes.get(ax, {}).get('issues', []):
                 lines.append(f'- [{vs.get("vendor", "不明")} / {label}] {issue}')
+
+    if ai_suggestions:
+        lines += ['', '## Claude AI 対応提案', '']
+        for suggestion in ai_suggestions:
+            lines.append(f'- {suggestion}')
 
     return '\n'.join(lines)
 
