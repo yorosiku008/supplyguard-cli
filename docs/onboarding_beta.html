@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SupplyGuard JP β版 オンボーディングガイド</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #0d1117; color: #e6edf3; line-height: 1.7; }
+    .header { background: linear-gradient(135deg, #2d1a4a 0%, #120a20 100%); padding: 48px 24px; text-align: center; border-bottom: 1px solid #30363d; }
+    .header h1 { font-size: 2rem; font-weight: 700; color: #f0f6fc; }
+    .header p { color: #8b949e; margin-top: 8px; font-size: 1rem; }
+    .badge { display: inline-block; background: #2d1a4a; color: #d2a8ff; font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; border: 1px solid #8957e5; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .container { max-width: 860px; margin: 0 auto; padding: 40px 24px; }
+    .step { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; position: relative; }
+    .step-number { position: absolute; top: -14px; left: 24px; background: #2d1a4a; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 2px 12px; border-radius: 20px; }
+    .step h2 { font-size: 1.15rem; font-weight: 700; color: #f0f6fc; margin-bottom: 12px; }
+    .step p { color: #8b949e; font-size: 0.95rem; margin-bottom: 12px; }
+    pre { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; font-family: 'Courier New', monospace; font-size: 0.875rem; color: #a5f3a5; overflow-x: auto; margin: 12px 0; }
+    code { background: #1c2128; color: #ff7b72; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85em; }
+    .note { background: #1c2128; border-left: 3px solid #388bfd; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; color: #79c0ff; font-size: 0.9rem; }
+    .success { background: #1c2128; border-left: 3px solid #3fb950; border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 12px 0; color: #56d364; font-size: 0.9rem; }
+    .axis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+    .axis-card { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px 16px; text-align: center; }
+    .ax-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 4px; color: #d2a8ff; }
+    .ax-weight { font-size: 1.2rem; font-weight: 700; color: #f0f6fc; }
+    .ax-desc { font-size: 0.75rem; color: #8b949e; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.875rem; }
+    th { background: #1c2128; color: #8b949e; font-weight: 600; padding: 10px 14px; text-align: left; border-bottom: 1px solid #30363d; }
+    td { padding: 10px 14px; border-bottom: 1px solid #21262d; color: #e6edf3; }
+    tr:last-child td { border-bottom: none; }
+    .footer { text-align: center; padding: 40px 24px; color: #484f58; font-size: 0.85rem; border-top: 1px solid #21262d; }
+    h3 { color: #f0f6fc; font-size: 1rem; margin: 18px 0 8px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">β版</div>
+  <h1>SupplyGuard JP オンボーディングガイド</h1>
+  <p>サプライチェーンセキュリティ評価CLI — 5分でセットアップ完了</p>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-number">STEP 1</div>
+    <h2>動作環境の確認</h2>
+    <p>SupplyGuard JP は Python 3.9 以上が必要です。</p>
+    <pre>python --version
+# Python 3.9.x 以上であれば OK</pre>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-number">STEP 2</div>
+    <h2>リポジトリのクローンとインストール</h2>
+    <pre>git clone https://github.com/yorosiku008/supplyguard-cli.git
+cd supplyguard-cli
+pip install -r requirements.txt</pre>
+    <div class="note">依存パッケージは <code>rich</code>（ターミナル描画）のみです。AWS不要で動作します。</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-number">STEP 3</div>
+    <h2>デモモードで動作確認</h2>
+    <p>3社のサンプルベンダーデータで評価フローを確認できます。</p>
+    <pre>python main.py --demo</pre>
+    <div class="success">ベンダー別スコア表とグレードが表示されれば成功です。</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-number">STEP 4</div>
+    <h2>3軸スコアリング — 評価内容</h2>
+    <p>EU CRA・経産省ガイドラインに基づく3軸でベンダーリスクを評価します。</p>
+    <div class="axis-grid">
+      <div class="axis-card">
+        <div class="ax-label">SBOM / CVE</div>
+        <div class="ax-weight">45%</div>
+        <div class="ax-desc">SBOMの有無 / CRITICAL・HIGH CVE件数</div>
+      </div>
+      <div class="axis-card">
+        <div class="ax-label">アンケート</div>
+        <div class="ax-weight">35%</div>
+        <div class="ax-desc">セキュリティアンケートの回答率・適合率</div>
+      </div>
+      <div class="axis-card">
+        <div class="ax-label">インシデント履歴</div>
+        <div class="ax-weight">20%</div>
+        <div class="ax-desc">直近12ヶ月のインシデント件数・侵害履歴</div>
+      </div>
+    </div>
+
+    <h3>グレード基準</h3>
+    <table>
+      <tr><th>グレード</th><th>スコア</th><th>評価・推奨アクション</th></tr>
+      <tr><td>S</td><td>90〜100</td><td>優秀 — 優先取引先として継続</td></tr>
+      <tr><td>A</td><td>80〜89</td><td>良好 — 軽微な改善要求</td></tr>
+      <tr><td>B</td><td>70〜79</td><td>普通 — 改善計画の提出を要求</td></tr>
+      <tr><td>C</td><td>60〜69</td><td>要注意 — 期限付き改善を要求</td></tr>
+      <tr><td>D</td><td>50〜59</td><td>不良 — 取引条件の見直しを検討</td></tr>
+      <tr><td>E</td><td>0〜49</td><td>危険 — 取引停止・代替先検討</td></tr>
+    </table>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-number">STEP 5</div>
+    <h2>EU CRA対応チェックポイント</h2>
+    <p>2027年施行予定のEU Cyber Resilience Act（CRA）に向けた確認項目：</p>
+    <table>
+      <tr><th>要件</th><th>チェック内容</th><th>SupplyGuardでの対応</th></tr>
+      <tr><td>SBOM提出義務</td><td>CycloneDX / SPDX形式のSBOMが存在するか</td><td>SBOM軸で評価（未提出でスコア大幅減）</td></tr>
+      <tr><td>脆弱性開示</td><td>CRITICAL CVEの修正期限遵守</td><td>CVE件数と重要度を定量評価</td></tr>
+      <tr><td>インシデント報告</td><td>重大インシデントの24時間以内報告</td><td>インシデント履歴軸で評価</td></tr>
+    </table>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-number">STEP 6</div>
+    <h2>Markdownレポートの出力</h2>
+    <pre>python main.py --demo --output-md
+# SupplyGuard_report_YYYYMMDD.md が保存されます</pre>
+    <div class="note">レポートには全ベンダーのスコア表と改善項目一覧が含まれます。監査対応資料として活用できます。</div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step">
+    <div class="step-number">STEP 7</div>
+    <h2>CLIオプション一覧</h2>
+    <table>
+      <tr><th>オプション</th><th>説明</th><th>例</th></tr>
+      <tr><td><code>--demo</code></td><td>デモデータで動作確認（3社）</td><td><code>python main.py --demo</code></td></tr>
+      <tr><td><code>--vendor</code></td><td>評価対象ベンダー名（将来拡張）</td><td><code>--vendor "ACME Corp"</code></td></tr>
+      <tr><td><code>--output-md</code></td><td>Markdownレポートをファイル出力</td><td><code>--output-md</code></td></tr>
+    </table>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step">
+    <div class="step-number">STEP 8</div>
+    <h2>フィードバックのお願い</h2>
+    <p>β版をお使いいただきありがとうございます。以下の点についてフィードバックをいただけると大変助かります。</p>
+    <ul style="color:#8b949e; padding-left: 20px; margin-top: 8px;">
+      <li>実際のベンダー評価で使ってみた感想・改善要望</li>
+      <li>追加したい評価軸・チェック項目</li>
+      <li>EU CRA対応で特に重視したい要件</li>
+      <li>アンケートの自動送信機能への需要（将来機能）</li>
+    </ul>
+    <div class="success" style="margin-top: 16px;">ご連絡先: <a href="mailto:yorosiku008@gmail.com" style="color:#56d364;">yorosiku008@gmail.com</a></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>SupplyGuard JP β版 — &copy; 2026 yorosiku008</p>
+</div>
+
+</body>
+</html>
