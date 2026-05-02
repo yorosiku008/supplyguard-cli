@@ -21,7 +21,7 @@ def _grade_color(grade: str) -> str:
 
 def print_report(vendor_scores: List[Dict]) -> None:
     console = Console(legacy_windows=False)
-    console.print('\n[bold]*** SupplyGuard JP — サプライチェーン セキュリティ評価[/bold]')
+    console.print('\n[bold]*** SupplyGuard JP -- サプライチェーン セキュリティ評価[/bold]')
     console.print('=' * 60)
     console.print(f'スキャン日時: {datetime.now().strftime("%Y-%m-%d %H:%M")}')
     console.print(f'評価ベンダー数: {len(vendor_scores)}社')
@@ -69,7 +69,7 @@ def print_report(vendor_scores: List[Dict]) -> None:
         for ax in AXIS_LABELS:
             all_issues.extend(axes.get(ax, {}).get('issues', []))
         if all_issues:
-            console.print(f'[bold]{vs.get("vendor", "不明")} — 改善が必要な項目:[/bold]')
+            console.print(f'[bold]{vs.get("vendor", "不明")} -- 改善が必要な項目:[/bold]')
             for i, issue in enumerate(all_issues, 1):
                 console.print(f'  {i}. {issue}')
     console.print()
@@ -77,7 +77,7 @@ def print_report(vendor_scores: List[Dict]) -> None:
 
 def build_md_report(vendor_scores: List[Dict]) -> str:
     lines = [
-        '# SupplyGuard JP — サプライチェーン セキュリティ評価レポート',
+        '# SupplyGuard JP -- サプライチェーン セキュリティ評価レポート',
         '',
         f'**スキャン日時:** {datetime.now().strftime("%Y-%m-%d %H:%M")}',
         f'**評価ベンダー数:** {len(vendor_scores)}社',
