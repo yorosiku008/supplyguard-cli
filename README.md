@@ -1,7 +1,7 @@
 # SupplyGuard JP
 
 [![Tests](https://github.com/yorosiku008/supplyguard-cli/actions/workflows/test.yml/badge.svg)](https://github.com/yorosiku008/supplyguard-cli/actions)
-[![Beta](https://img.shields.io/badge/β版-募集中-brightgreen)](mailto:yorosiku008@gmail.com)
+[![Beta](https://img.shields.io/badge/β版-募集中-brightgreen)](https://github.com/yorosiku008/supplyguard-cli/issues/new?template=beta_application.md&title=%5Bβ版申込%5D)
 
 サプライチェーンセキュリティ評価CLI — SBOM/CVE・アンケート・インシデント履歴の3軸でベンダーリスクを定量評価します。EU CRA・経産省ガイドライン対応。
 
@@ -57,4 +57,4 @@ pytest tests/ -v
 
 ---
 
-*SupplyGuard JP v0.1.0 — β版ユーザー募集中: yorosiku008@gmail.com*
+*SupplyGuard JP v0.1.0 — β版ユーザー募集中: yorosiku008.github.io/supplyguard-lp/*
